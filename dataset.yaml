@@ -1,0 +1,7 @@
+train: ./yolo_data/images/train  
+val: ./yolo_data/images/val 
+
+
+# Classes
+nc: 8  # number of classes
+names: ['0','1','2','3','4','5','6','7']  # class names
