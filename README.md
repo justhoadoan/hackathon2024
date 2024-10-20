@@ -1,1 +1,1 @@
-# hackathon2024
+# hackathon2024 - soict - thai & hoa
