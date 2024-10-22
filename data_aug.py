@@ -36,7 +36,18 @@ for image_file in os.listdir(images_path):
                 category_ids.append(int(bbox[0]))
                 bboxes.append(bbox[1:])
 
-        transformed = transform(image=image, bboxes=bboxes, category_ids=category_ids)
+        try:
+            transformed = transform(image=image, bboxes=bboxes, category_ids=category_ids)
+        except:
+            augmented_image_path = os.path.join(augmented_images_path, image_file)
+            cv2.imwrite(augmented_image_path, image)
+            augmented_label_path = os.path.join(augmented_labels_path, label_file)
+            with open(augmented_label_path, 'w') as f:
+                for i, bbox in enumerate(bboxes):
+                    bbox_str = ' '.join(map(str, [int(category_ids[i]), *bbox]))
+                    f.write(bbox_str + '\n')
+            continue
+
         transformed_image = transformed['image']
         transformed_bboxes = transformed['bboxes']
         transformed_category_ids = transformed['category_ids']
